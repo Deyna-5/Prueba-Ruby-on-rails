@@ -2,17 +2,23 @@
 
 <% @tweets.each do |f| %>
 <div class="card text-center my-5">
-       
-       <div class="text-left">
-              <%#= image_tag @user.photo, size: '200x120' %>
-       </div>
 
-       <div>
+       <div class="text-right">
+              <p> <%= f.created_at %><%= link_to "show", tweets_show_path %> </p>
+       </div>
+       
+       <img src="<%= f.user.image_url %>"width="70" height="60" class=" d-inline mt-4 ml-4" >
+
+       <div class="d-inline">
               <%= f.content %>
        </div>
 
-       <div>
-              <%#= @like.count %>
+       <div class="text-right mr-3 mb-3">
+              <% if current_user %>
+              <i class="far fa-heart"><%= link_to "Like", tweets_like_path %></i>
+              <%else%>
+              <i class="fas fa-heart"><%= link_to "dislike", tweets_dislike_path %></i>
+              <%end%>
        </div>
 
 </div>

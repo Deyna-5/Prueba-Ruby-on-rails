@@ -1,8 +1,9 @@
 class TweetsController < ApplicationController
+
        def index
-              #@tweets = Tweet.order("created_at DESC").page(params[:page])
+              @tweets = Tweet.order(:created_at).page(params[:tweet])
               if current_user
-                     @tweets = Tweet.all
+                     @tweets = Tweet.all.order_desc
               else
                      @tweets = Tweet.last_50_tweets
               end
@@ -21,6 +22,18 @@ class TweetsController < ApplicationController
               else
                      render "new", alert: "Hubo un error, intente nuevamente"
               end
+       end
+
+       def like
+              redirect_to root_path, notice: "Haz dado like"
+       end
+
+       def dislike
+              
+       end
+
+       def show
+
        end
 
        private
