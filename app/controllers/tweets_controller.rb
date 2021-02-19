@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
        def index
-              @tweets = Tweet.order("created_at DESC")
+              #@tweets = Tweet.order("created_at DESC").page(params[:page])
               if current_user
                      @tweets = Tweet.all
               else

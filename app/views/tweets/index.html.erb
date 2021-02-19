@@ -1,15 +1,23 @@
 <h1 class="text-center my-5">Twitter Index</h1>
 
 <% @tweets.each do |f| %>
-<div class="card text-center">
+<div class="card text-center my-5">
        
        <div class="text-left">
-       <%= f.user.image_url %>
+              <%#= image_tag @user.photo, size: '200x120' %>
        </div>
 
        <div>
-       <%= f.content %>
+              <%= f.content %>
+       </div>
+
+       <div>
+              <%#= @like.count %>
        </div>
 
 </div>
 <%end%>
+
+<div class="row">
+       <%#= paginate @tweets %>
+</div>

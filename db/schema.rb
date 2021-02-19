@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_19_142345) do
+ActiveRecord::Schema.define(version: 2021_02_19_153206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "tweets_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tweets_id"], name: "index_likes_on_tweets_id"
+  end
 
   create_table "tweets", force: :cascade do |t|
     t.text "content"
@@ -37,5 +44,6 @@ ActiveRecord::Schema.define(version: 2021_02_19_142345) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "likes", "tweets", column: "tweets_id"
   add_foreign_key "tweets", "users"
 end
