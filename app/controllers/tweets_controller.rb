@@ -1,8 +1,9 @@
 class TweetsController < ApplicationController
+       before_action :authenticate_user!, :except => [:index]
 
        def index
-              @tweets = Tweet.order(:created_at).page(params[:tweet])
-              if current_user
+              @tweets = Tweet.page(params[:pages])
+              if user_signed_in?
                      @tweets = Tweet.all.order_desc
               else
                      @tweets = Tweet.last_50_tweets
@@ -24,17 +25,11 @@ class TweetsController < ApplicationController
               end
        end
 
-       def like
-              redirect_to root_path, notice: "Haz dado like"
-       end
-
-       def dislike
-              
-       end
-
        def show
-
+              @tweet = Tweet.find(params[:id])
        end
+
+
 
        private
               def tweets_params

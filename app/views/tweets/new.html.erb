@@ -3,11 +3,13 @@
               <div class="card-body">
                      <%= form_with(model: @tweet, local: true) do |f| %>
                             <%= f.label "Twitea algo!" %><br>
-                            <%= f.text_area :content %><br>
+                            <%= f.text_area :content, size: '60x10' %><br>
                             <%= f.submit "Subir" %>
                      <%end%>
               </div>
        </div>
+
+       <button type="button" class="btn btn-light mt-3"><%= link_to "Atras", root_path %></button>
 <%else%>
        <h2 class="text-center">Si deseas Twiter debes ingresar o crearte una cuenta</h1>
 <%end%>

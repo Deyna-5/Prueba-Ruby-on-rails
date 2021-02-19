@@ -4,20 +4,21 @@
 <div class="card text-center my-5">
 
        <div class="text-right">
-              <p> <%= f.created_at %><%= link_to "show", tweets_show_path %> </p>
+              <span><%= time_ago_in_words(f.created_at) %></span>
        </div>
        
-       <img src="<%= f.user.image_url %>"width="70" height="60" class=" d-inline mt-4 ml-4" >
+       <img src="<%= f.user.image_url %>"width="70" height="60" class=" mt-4 ml-4" >
 
        <div class="d-inline">
               <%= f.content %>
        </div>
 
+       <%= link_to "dar like", tweet_path(f.id) %>
        <div class="text-right mr-3 mb-3">
-              <% if current_user %>
-              <i class="far fa-heart"><%= link_to "Like", tweets_like_path %></i>
+              <% if  f.likes.count == 1 %>
+              <p><i class="fas fa-heart"><%= f.likes.count %> <%= ( f.likes.count) == 1 ? "like" : "likes" %></i> </p>
               <%else%>
-              <i class="fas fa-heart"><%= link_to "dislike", tweets_dislike_path %></i>
+              <p><i class="far fa-heart"><%= f.likes.count %> <%= ( f.likes.count) == 1 ? "like" : "likes" %></i> </p>
               <%end%>
        </div>
 
@@ -25,5 +26,5 @@
 <%end%>
 
 <div class="row">
-       <%#= paginate @tweets %>
+       <%#= paginate(@tweets) %>
 </div>

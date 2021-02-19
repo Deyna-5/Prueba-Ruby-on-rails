@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  tweets: one
+  tweet: one
+  user: one
 
 two:
-  tweets: two
+  tweet: two
+  user: two
