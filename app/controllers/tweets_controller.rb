@@ -1,5 +1,6 @@
 class TweetsController < ApplicationController
        before_action :authenticate_user!, :except => [:index]
+       before_action :set_tweet, only: [:show, :retweet]
 
        def index
               @tweets = Tweet.page(params[:pages])
@@ -26,13 +27,23 @@ class TweetsController < ApplicationController
        end
 
        def show
-              @tweet = Tweet.find(params[:id])
        end
 
-
+       def retweet
+              tweet = current_user.tweets.new(tweet_id: @tweet.id)
+              if tweet.save
+                     redirect_to root_path
+              else
+                     render "new", alert: "Hubo un error, intente nuevamente"
+              end
+       end
 
        private
               def tweets_params
-                     params.require(:tweet).permit(:content)
+                     params.permit(:content)
+              end
+
+              def set_tweet
+                     @tweet = Tweet.find(params[:id])
               end
 end

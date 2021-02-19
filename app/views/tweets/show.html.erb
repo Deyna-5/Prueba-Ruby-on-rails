@@ -1,3 +1,6 @@
+
+       <%#= render "tweets/detalle" %>
+
 <% pre_like = @tweet.likes.find {|like| like.user_id == current_user.id} %>
        <% if pre_like %>
               <%= button_to "Unlike", tweet_like_path(@tweet, pre_like), method: :delete %>
