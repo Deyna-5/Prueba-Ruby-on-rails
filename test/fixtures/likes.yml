@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  belongs_to: 
+  tweets: one
 
 two:
-  belongs_to: 
+  tweets: two

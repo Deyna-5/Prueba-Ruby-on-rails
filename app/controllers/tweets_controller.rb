@@ -1,5 +1,4 @@
-class PagesController < ApplicationController
-
+class TweetsController < ApplicationController
        def index
               @tweets = Tweet.order("created_at DESC")
               if current_user
@@ -15,7 +14,7 @@ class PagesController < ApplicationController
 
        def create
               @tweet = Tweet.new(tweets_params)
-              @tweet.users_id = current_user.id
+              @tweet.user_id = current_user.id if current_user
 
               if @tweet.save
                      redirect_to root_path, notice: "Tweet generado éxitosamente"
@@ -26,7 +25,6 @@ class PagesController < ApplicationController
 
        private
               def tweets_params
-                     params.require(:tweet).permit(:contents, :users_id)
+                     params.require(:tweet).permit(:content)
               end
-
 end

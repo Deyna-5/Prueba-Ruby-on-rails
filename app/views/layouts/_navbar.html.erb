@@ -3,7 +3,7 @@
               <i class="fab fa-twitter-square">Twitter</i>
        </a>
        <div class="Text-left">
-              <%if current_user%>
+              <%if user_signed_in? %>
                      <%= link_to "Salir", destroy_user_session_path, method: :delete %>
               <%else%>
                      <%= link_to "Ingresar", new_user_session_path %> |

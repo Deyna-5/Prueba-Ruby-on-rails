@@ -1,0 +1,15 @@
+<h1 class="text-center my-5">Twitter Index</h1>
+
+<% @tweets.each do |f| %>
+<div class="card text-center">
+       
+       <div class="text-left">
+       <%= f.user.image_url %>
+       </div>
+
+       <div>
+       <%= f.content %>
+       </div>
+
+</div>
+<%end%>
