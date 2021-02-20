@@ -5,10 +5,10 @@ class TweetsController < ApplicationController
        def index
               if user_signed_in?
                      @tweets = Tweet.all.order(created_at: :DESC)
-                     @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(15)
+                     @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(50)
               else
                      @tweets = Tweet.last_50_tweets.page
-                     @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(15)
+                     @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(50)
               end
        end
 
