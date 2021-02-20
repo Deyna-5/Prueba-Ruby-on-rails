@@ -23,11 +23,21 @@ class TweetsController < ApplicationController
               if @tweet.save
                      redirect_to root_path, notice: "Tweet generado éxitosamente"
               else
-                     render "new", alert: "Hubo un error, intente nuevamente"
+                     redirect_to root_path, alert: "Hubo un error, intente nuevamente"
               end
        end
 
        def show
+       end
+
+       def retweet
+              @retweet = Tweet.new(user_id: current_user.id, content: @tweet.content)
+
+              if @retweet.save
+                     redirect_to root_path, notice: "Retweet éxitoso"
+              else
+                     redirect_to root_path, alert: "Ocurrio un error"
+              end
        end
 
        private
