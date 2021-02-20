@@ -25,7 +25,7 @@
                                    <p class="d-inline"><i class="far fa-heart"><%= f.likes.count %> <%= ( f.likes.count) == 1 ? "like" : "likes" %></i> | </p>
                             <%end%>
                             <%= link_to "Dar Retweet", tweet_path(f.id) %>
-                            <p class="d-inline"><i class="fas fa-retweet">  </i></p>
+                            <p class="d-inline"><i class="fas fa-retweet"> <%#= f.retweets.count %> <%#= (f.retweets.count) == 1 ? "retweet" : "retweets" %> </i></p>
                      </div>
               </div>
        </div>
