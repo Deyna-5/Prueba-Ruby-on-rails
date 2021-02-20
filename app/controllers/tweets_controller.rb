@@ -29,15 +29,6 @@ class TweetsController < ApplicationController
        def show
        end
 
-       def retweet
-              tweet = current_user.tweets.new(tweet_id: @tweet.id)
-              if tweet.save
-                     redirect_to root_path
-              else
-                     render "new", alert: "Hubo un error, intente nuevamente"
-              end
-       end
-
        private
               def tweets_params
                      params.permit(:content)
