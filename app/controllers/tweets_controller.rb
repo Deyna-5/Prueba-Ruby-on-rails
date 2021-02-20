@@ -3,11 +3,12 @@ class TweetsController < ApplicationController
        before_action :set_tweet, only: [:show, :retweet]
 
        def index
-              @tweets = Tweet.order(created_at: :desc).page(params[:pages]).per(50)
               if user_signed_in?
-                     @tweets = Tweet.all.order_desc
+                     @tweets = Tweet.all.order(created_at: :DESC)
+                     @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(15)
               else
-                     @tweets = Tweet.last_50_tweets
+                     @tweets = Tweet.last_50_tweets.page
+                     @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(15)
               end
        end
 
