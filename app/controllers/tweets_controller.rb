@@ -3,7 +3,7 @@ class TweetsController < ApplicationController
        before_action :set_tweet, only: [:show, :retweet]
 
        def index
-              @tweets = Tweet.page(params[:pages])
+              @tweets = Tweet.order(created_at: :desc).page(params[:pages]).per(50)
               if user_signed_in?
                      @tweets = Tweet.all.order_desc
               else
