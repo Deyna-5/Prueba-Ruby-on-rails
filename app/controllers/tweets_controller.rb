@@ -2,15 +2,15 @@ class TweetsController < ApplicationController
        before_action :authenticate_user!, :except => [:index]
        before_action :set_tweet, only: [:show, :retweet]
 
-       def index
-              if user_signed_in?
-                     @tweets = Tweet.all.order(created_at: :DESC)
-                     @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(50)
-              else
-                     @tweets = Tweet.last_50_tweets.page
-                     @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(50)
-              end
-       end
+       #def index
+       #       if user_signed_in?
+       #              @tweets = Tweet.all.order(created_at: :DESC)
+       #              @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(50)
+       #       else
+       #              @tweets = Tweet.last_50_tweets.page
+       #              @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(50)
+       #       end
+       #end
 
        def new
               @tweet = Tweet.new
@@ -38,6 +38,18 @@ class TweetsController < ApplicationController
               else
                      redirect_to root_path, alert: "Ocurrio un error"
               end
+       end
+
+       def follow
+              @user = User.find(params[:id])
+              current_user.friend << @user
+              redirect_to root_path
+       end
+
+       def unfollow
+              @user = User.find(params[:id])
+              current_user.user_id.find_by(user_id: @user.id).destroy
+              redirect_to root_path
        end
 
        private

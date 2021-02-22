@@ -5,6 +5,14 @@
 <% @tweets.each do |f| %>
        <div class="card text-center my-5">
 
+              <!--<div class="text-right">
+                     <%# if current_user.following?(@user) %>
+                     <%#= button_to "Unfollow", tweets_index_path(f.user.id), method: :delete %>
+                     <%#else%>
+                     <%#= button_to "Follow", tweets_index_path(f.user.id) %>
+                     <%#end%>
+              </div>-->
+
               <div class="text-right">
                      <%=  link_to time_ago_in_words(f.created_at), tweet_path(f.id) %>
               </div>
@@ -25,7 +33,7 @@
                                    <p class="d-inline"><i class="far fa-heart"><%= f.likes.count %> <%= ( f.likes.count) == 1 ? "like" : "likes" %></i> | </p>
                             <%end%>
                             <%= link_to "Dar Retweet", tweet_path(f.id) %>
-                            <p class="d-inline"><i class="fas fa-retweet"> <%#= f.retweets.count %> <%#= (f.retweets.count) == 1 ? "retweet" : "retweets" %> </i></p>
+                            <p class="d-inline"><i class="fas fa-retweet"> <%= f.retweets.count %> <%#= (f.retweets.count) == 1 ? "retweet" : "retweets" %> </i></p>
                      </div>
               </div>
        </div>

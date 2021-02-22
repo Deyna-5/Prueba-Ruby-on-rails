@@ -16,3 +16,13 @@
 <%= button_to 'Retweet', retweet_tweet_path(@tweet.id), method: :post%>
 
 <%= link_to "Atras", root_path %>
+
+<div>
+
+       <%# if current_user.friends.include?(@user) %>
+              <%#= button_to "Unfollow", unfollow_user_path, method: :post %>
+       <%#else%>
+              <%#=button_to "follow", follow_user_path, method: :post %>
+       <%#end%>
+
+</div>
