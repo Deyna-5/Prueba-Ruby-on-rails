@@ -6,6 +6,14 @@
        <div class="card text-center my-5">
 
               <div class="text-right">
+                     <%if current_user.following?(f.user) %>
+                            <%= button_to "Unfollow",{:controller => :friends, action: 'unfollow', id: f.user_id }, method: 'post'  %>
+                     <%else%>
+                            <%= button_to "Follow",{:controller => :friends, action: 'follow', id: f.user_id}, method: 'post' %>
+                     <%end%>
+              </div>
+
+              <div class="text-right">
                      <%=  link_to time_ago_in_words(f.created_at), tweet_path(f.id) %>
               </div>
               
