@@ -13,9 +13,11 @@
 <% @tweets.each do |f| %>
        <div class="card text-center my-5">
 
+              <% if user_signed_in? %>
               <div class="text-right">
                      <i class="fas fa-user-friends"><%= button_to "Follow" , friends_path(friend_id: f.user_id), method: :get %></i>
               </div>
+              <%end%>
 
               <div class="text-right">
                      <%=  link_to time_ago_in_words(f.created_at), tweet_path(f.id) %>
