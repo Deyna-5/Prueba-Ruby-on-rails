@@ -10,6 +10,8 @@ class TweetsController < ApplicationController
                      @tweets = Tweet.last_50_tweets.page
                      @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(50)
               end
+              @q =Tweet.ransack(params[:q])
+              @tweets = @q.result(distinct: true).order(created_at: :DESC).page(params[:page]).per(50)
        end
 
        def new

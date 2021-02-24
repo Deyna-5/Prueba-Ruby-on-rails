@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2021_02_23_110210) do
-=======
-ActiveRecord::Schema.define(version: 2021_02_23_114428) do
->>>>>>> friends2
+ActiveRecord::Schema.define(version: 2021_02_23_160753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +39,14 @@ ActiveRecord::Schema.define(version: 2021_02_23_114428) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "friends", force: :cascade do |t|
+    t.integer "friend_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -85,6 +89,7 @@ ActiveRecord::Schema.define(version: 2021_02_23_114428) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "friends", "users"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
   add_foreign_key "retweets", "tweets"

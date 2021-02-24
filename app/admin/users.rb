@@ -8,7 +8,7 @@ ActiveAdmin.register User do
     column :image_url
     column :likes
     column :retweets  #Acomodar los retweets
-    column :friends_id  #Hacer la hisotoria 1
+    column :friends #Hacer la hisotoria 1
     actions defaults: true
   end
 end

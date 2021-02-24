@@ -1,9 +1,21 @@
-<h1 class="text-center my-5">Twitter Index</h1>
+<div class="Text-left mb-5">
+       <%= search_form_for @q, local: true do |f| %>
+              <%= f.search_field :content_cont_all, placeholder: "Busca algun tweet" %>
+              <%= f.submit %>
+       <%end%>
+</div>
+
+
+<h1 class="text-center my-5">Twitter Index</h1>  
 
        <%= render "new" %>
 
 <% @tweets.each do |f| %>
        <div class="card text-center my-5">
+
+              <div class="text-right">
+                     <i class="fas fa-user-friends"><%= button_to "Follow" , friends_path(friend_id: f.user_id), method: :get %></i>
+              </div>
 
               <div class="text-right">
                      <%=  link_to time_ago_in_words(f.created_at), tweet_path(f.id) %>
@@ -27,7 +39,9 @@
                             <%= link_to "Dar Retweet", tweet_path(f.id) %>
                             <p class="d-inline"><i class="fas fa-retweet"> <%#= f.retweets.count %> <%#= (f.retweets.count) == 1 ? "retweet" : "retweets" %> </i></p>
                      </div>
+
               </div>
+
        </div>
 <%end%>
 
