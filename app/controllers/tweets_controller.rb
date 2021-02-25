@@ -1,10 +1,11 @@
 class TweetsController < ApplicationController
        before_action :authenticate_user!, :except => [:index]
        before_action :set_tweet, only: [:show, :retweet]
+       http_basic_authenticate_with name: "user", password: "password", only: :api
 
        def index
               if user_signed_in?
-                      @tweets = Tweet.all.order(created_at: :DESC)
+                     @tweets = Tweet.all.order(created_at: :DESC)
                      @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(50)
               else
                      @tweets = Tweet.last_50_tweets.page
@@ -44,7 +45,10 @@ class TweetsController < ApplicationController
 
        def api
               @tweets = Tweet.last_50_tweets
-              render json: @tweets.to_json(only: [:id, :content, :user_id, :likes_count, :retweets_count, :retweets_from])
+              render json: @tweets.to_json(only: [:id, :content, :user_id, :likes_count, :retweets_count, :retweets_from]) #No se como mostrar los likes, retweet y etceteras :))
+              #Jbuilder.new do |tweet|
+              #       tweet.(self, :id, :content, :user_id, :likes)
+              #end
        end
 
        private

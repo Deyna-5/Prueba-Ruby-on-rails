@@ -14,7 +14,10 @@ Rails.application.routes.draw do
 
   get "friends/friends", as: "friends"
 
-  get "api/news", to: "tweets#api"
+  get "api/news", to: "tweets#api", defaults: {formant: 'json'} do
+    resources :likes
+    resoruces :retweets
+  end
 
   root "tweets#index"
 
