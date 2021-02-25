@@ -7,4 +7,6 @@ class Tweet < ApplicationRecord
        validates :content, presence: true
 
        scope :last_50_tweets, -> { self.all.order(created_at: :desc).limit(50) }
+
+
 end

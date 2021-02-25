@@ -4,7 +4,7 @@ class TweetsController < ApplicationController
 
        def index
               if user_signed_in?
-                     @tweets = Tweet.all.order(created_at: :DESC)
+                      @tweets = Tweet.all.order(created_at: :DESC)
                      @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(50)
               else
                      @tweets = Tweet.last_50_tweets.page
@@ -40,6 +40,11 @@ class TweetsController < ApplicationController
               else
                      redirect_to root_path, alert: "Ocurrio un error"
               end
+       end
+
+       def api
+              @tweets = Tweet.last_50_tweets
+              render json: @tweets.to_json(only: [:id, :content, :user_id, :likes_count, :retweets_count, :retweets_from])
        end
 
        private

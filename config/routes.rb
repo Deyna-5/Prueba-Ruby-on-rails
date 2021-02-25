@@ -11,9 +11,11 @@ Rails.application.routes.draw do
   end
 
   devise_for :users,  controllers: {registrations: 'users/registrations'}
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get "friends/friends", as: "friends"
 
+  get "api/news", to: "tweets#api"
+
   root "tweets#index"
+
 end
