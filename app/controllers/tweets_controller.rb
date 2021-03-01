@@ -1,8 +1,8 @@
 class TweetsController < ApplicationController
-       before_action :authenticate_user!, :except => [:index]
+       before_action :authenticate_user!, :except => [:index, :api, :date]
        before_action :set_tweet, only: [:show, :retweet]
        #http_basic_authenticate_with name: "user", password: "password", only: :api
-       before_action :update, :only => [:update]
+       before_action :update, :only => [:show]
 
 
        def index
@@ -38,7 +38,6 @@ class TweetsController < ApplicationController
 
        def retweet
               @retweet = Tweet.new(user_id: current_user.id, content: @tweet.content)
-
               if @retweet.save
                      redirect_to root_path, notice: "Retweet éxitoso"
               else
@@ -48,12 +47,17 @@ class TweetsController < ApplicationController
 
        def api
               @tweets = Tweet.last_50_tweets
-              render json: @tweets.to_json(only: [:id, :content, :user_id, :like_count, :retweets_count, :retweets_from])
+              render json: @tweets.to_json(only: [:id, :content, :user_id, :likes_count, :retweets_count, :rewtitted_from, :created_at])
        end
 
        def update
               @tweet = Tweet.find(params[:id])
-              @tweet.update_attributes(:like_count => @tweet.likes.count, :retweets_count => @tweet.retweet.count, :retweets_from => @tweet.tweet_id)
+              @tweet.update_attributes(:likes_count => @tweet.likes.count, :retweets_count => @tweet.retweets.count, :rewtitted_from=> @tweet.id)
+       end
+
+       def date
+              @date = Tweet.where('created_at BETWEEN ? AND ?', params[:fecha1], params[:fecha2])
+              render json: @date.to_json
        end
 
        private

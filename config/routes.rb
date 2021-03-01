@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   get "api/news", to: "tweets#api"
 
-  #get "api/:created_at/:created_at", to: ""
+  get "api/:fecha1/:fecha2", to: "tweets#date"
 
   root "tweets#index"
 
