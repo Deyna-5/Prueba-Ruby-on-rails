@@ -1,0 +1,27 @@
+body{
+       font-family: 'Roboto', sans-serif;
+}
+.navbar{
+       background: rgb(12, 172, 212);
+       color: white
+}
+.botones{
+       position: absolute;
+       right: 200px;
+}
+.buscador{
+       position: absolute;
+       right: 100px;
+       top: -16px
+}
+.navshow{
+       position: relative;
+       top: -59px;
+}
+img{
+       border-radius: 100px;
+}
+.contenido{
+       position: relative;
+       top: -40px;
+}

@@ -1,56 +1,42 @@
-<div class="Text-left mb-5">
-       <%= search_form_for @q, local: true do |f| %>
-              <%= f.search_field :content_cont_all, placeholder: "Busca algun tweet" %>
-              <%= f.submit %>
-       <%end%>
-</div>
-
-
-<h1 class="text-center my-5">Twitter Index</h1>  
+<div class="container">
 
        <%= render "new" %>
 
-<%# @login_user.friends.each do |f| %>
-       <%#= f.user_id %>
-<%#end%>
+       <% @tweets.each do |f| %>
+              <div class="card text-center my-5">
+                     <% if user_signed_in? %>
+                            <div class="text-right">
+                                   <i class="fas fa-user-friends"><%= button_to "Follow" , friends_path(friend_id: f.user_id), method: :get %></i>
+                            </div>
+                     <%end%>
 
-<% @tweets.each do |f| %>
-       <div class="card text-center my-5">
+                     <div class="text-right">
+                            <%=  link_to time_ago_in_words(f.created_at), tweet_path(f.id) %>
+                     </div>
+                     
+                     <img src="<%= f.user.image_url %>"width="80" height="70" class=" mt-4 ml-4" >
 
-              <% if user_signed_in? %>
-              <div class="text-right">
-                     <i class="fas fa-user-friends"><%= button_to "Follow" , friends_path(friend_id: f.user_id), method: :get %></i>
-              </div>
-              <%end%>
-
-              <div class="text-right">
-                     <%=  link_to time_ago_in_words(f.created_at), tweet_path(f.id) %>
-              </div>
-              
-              <img src="<%= f.user.image_url %>"width="80" height="70" class=" mt-4 ml-4" >
-
-              <div class="d-inline mb-5">
-                     <%= f.content %>
-              </div>
-
-              <div class="card-footer">
-                            
-                     <div class="text-right ml-5 mb-3">
-                            <%= link_to "Dar like", tweet_path(f.id) %>
-                            <% if  f.likes.count >= 1 %>
-                                   <p class="d-inline"><i class="fas fa-heart"><%= f.likes.count %> <%= ( f.likes.count) == 1 ? "like" : "likes" %></i> | </p>
-                            <%else%>
-                                   <p class="d-inline"><i class="far fa-heart"><%= f.likes.count %> <%= ( f.likes.count) == 1 ? "like" : "likes" %></i> | </p>
-                            <%end%>
-                            <%= link_to "Dar Retweet", tweet_path(f.id) %>
-                            <p class="d-inline"><i class="fas fa-retweet"> <%= f.retweets.count %> <%= (f.retweets.count) == 1 ? "retweet" : "retweets" %> </i></p>
+                     <div class="d-inline mb-5 contenido">
+                            <%= f.content %>
                      </div>
 
+                     <div class="card-footer">
+                            <div class="text-right ml-5 mb-3">
+                                   <%= link_to "Dar like", tweet_path(f.id) %>
+                                   <% if  f.likes.count >= 1 %>
+                                          <p class="d-inline"><i class="fas fa-heart"><%= f.likes.count %> <%= ( f.likes.count) == 1 ? "like" : "likes" %></i> | </p>
+                                   <%else%>
+                                          <p class="d-inline"><i class="far fa-heart"><%= f.likes.count %> <%= ( f.likes.count) == 1 ? "like" : "likes" %></i> | </p>
+                                   <%end%>
+                                   <%= link_to "Dar Retweet", tweet_path(f.id) %>
+                                   <p class="d-inline"><i class="fas fa-retweet"></i></p>
+                            </div>
+                     </div>
               </div>
+       <%end%>
 
+       <div class="row">
+              <%= paginate @tweets %>
        </div>
-<%end%>
 
-<div class="row">
-       <%= paginate @tweets %>
 </div>

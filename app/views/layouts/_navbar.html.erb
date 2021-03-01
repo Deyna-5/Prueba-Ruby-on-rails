@@ -1,13 +1,29 @@
-<nav class="navbar navbar-dark bg-dark">
-       <a class="navbar-brand">
-              <i class="fab fa-twitter-square">Twitter</i>
-       </a>
-       <div class="Text-left">
+<nav class="navbar navbar-dark">
+       <div class="container">
+              <a class="navbar-brand">
+                     <i class="fab fa-twitter-square">Twitter</i>
+              </a>
+              
+                     <div class="botones">
+                            <%if user_signed_in? %>
+                                   <%= link_to "Salir", destroy_user_session_path, method: :delete %> |
+                            <%else%>
+                                   <%= link_to "Ingresar", new_user_session_path %> |
+                                   <%= link_to "Registrar", new_user_registration_path %>
+                            <%end%>
+                     </div>
               <%if user_signed_in? %>
-                     <%= link_to "Salir", destroy_user_session_path, method: :delete %>
-              <%else%>
-                     <%= link_to "Ingresar", new_user_session_path %> |
-                     <%= link_to "Registrar", new_user_registration_path %>
+                     <li class="nav-item dropdown buscador">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Buscador</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                   <div class="Text-left mb-5">
+                                          <%= search_form_for @q, local: true do |f| %>
+                                                 <%= f.search_field :content_cont_all, placeholder: "Busca algun tweet" %>
+                                                 <%= f.submit %>
+                                          <%end%>
+                                   </div>
+                            </div>
+                     </li>
               <%end%>
        </div>
 </nav>

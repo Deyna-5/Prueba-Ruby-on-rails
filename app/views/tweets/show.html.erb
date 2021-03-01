@@ -1,18 +1,22 @@
+<%= render "navbarnav" %>
 
-<% @tweet.likes.each do |f| %>
-       <div class="card">
-              <img src=" <%= f.user.image_url %> " width="80" height="70" class=" d-inline">
-              <p class=" d-inline"> <%= f.user.name %> </p>
-       </div>
-<%end%>
-
-<% pre_like = @tweet.likes.find {|like| like.user_id == current_user.id} %>
-       <% if pre_like %>
-              <%= button_to "Unlike", tweet_like_path(@tweet, pre_like), method: :delete %>
-       <%else%>
-              <%= button_to 'Like', tweet_likes_path(@tweet), method: :tweet %>
+<div class="container">
+       <h5 class="mb-4">Personas que también le dieron like a este tweet</h5>
+       <% @tweet.likes.each do |f| %>
+              <div class="card d-inline">
+                     <img src=" <%= f.user.image_url %> " width="80" height="70" class=" d-inline">
+                     <p class=" d-inline"> <%= f.user.name %> </p>
+              </div>
        <%end%>
 
-<%= button_to 'Retweet', retweet_tweet_path(@tweet.id), method: :post%>
-
-<%= link_to "Atras", root_path %>
+       <div class="card mt-5 mb-3">
+       <% pre_like = @tweet.likes.find {|like| like.user_id == current_user.id} %>
+              <% if pre_like %>
+                     <%= button_to "Unlike", tweet_like_path(@tweet, pre_like), method: :delete %>
+              <%else%>
+                     <%= button_to 'Like', tweet_likes_path(@tweet), method: :tweet %>
+              <%end%>
+       <%= button_to 'Retweet', retweet_tweet_path(@tweet.id), method: :post%>
+       </div>
+       <%= link_to "Atras", root_path %>
+</div>

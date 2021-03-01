@@ -1,10 +1,14 @@
 class TweetsController < ApplicationController
        before_action :authenticate_user!, :except => [:index, :api, :date]
        before_action :set_tweet, only: [:show, :retweet]
-       #http_basic_authenticate_with name: "user", password: "password", only: :api
+       http_basic_authenticate_with name: "user", password: "password", only: :api
        before_action :update, :only => [:show]
+       before_action :disable_nav, only: [:show]
 
-
+       def disable_nav
+              @disable_nav = true
+       end
+       
        def index
               if user_signed_in?
                      @tweets = Tweet.all.order(created_at: :DESC)
@@ -47,7 +51,7 @@ class TweetsController < ApplicationController
 
        def api
               @tweets = Tweet.last_50_tweets
-              render json: @tweets.to_json(only: [:id, :content, :user_id, :likes_count, :retweets_count, :rewtitted_from, :created_at])
+              render json: @tweets.to_json(only: [:id, :content, :user_id, :likes_count, :retweets_count, :rewtitted_from])
        end
 
        def update
@@ -60,6 +64,13 @@ class TweetsController < ApplicationController
               render json: @date.to_json
        end
 
+       def createApi
+              @tweet = Tweet.new(api_params)
+              if @tweet.save
+                     render json: @tweet.to_json, status: :created, location: @tweet
+              end
+       end
+
        private
               def tweets_params
                      params.permit(:content)
@@ -67,5 +78,9 @@ class TweetsController < ApplicationController
 
               def set_tweet
                      @tweet = Tweet.find(params[:id])
+              end
+
+              def api_params
+                     params.require(:tweet).permit(:id, :content, :user_id)
               end
 end

@@ -1,0 +1,13 @@
+<nav class="navbar navbar-dark navshow">
+       <a class="navbar-brand">
+              <i class="fab fa-twitter-square">Twitter</i>
+       </a>
+       <div class="Text-left">
+              <%if user_signed_in? %>
+                     <%= link_to "Salir", destroy_user_session_path, method: :delete %>
+              <%else%>
+                     <%= link_to "Ingresar", new_user_session_path %> |
+                     <%= link_to "Registrar", new_user_registration_path %>
+              <%end%>
+       </div>
+</nav>
